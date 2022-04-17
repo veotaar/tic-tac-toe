@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  margin: 0;
+}
+
+.container {
+  width: min(100% - 2rem, 50rem);
+  margin-inline: auto;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: var(--size-2);
+  align-items: center;
+}
+
+.board__square {
+  background-color: var(--gray-8);
+  aspect-ratio: var(--ratio-square);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-7);
+  user-select: none;
+  cursor: pointer;
+}
+
+.board__square:hover {
+  background-color: var(--gray-7);
+}
