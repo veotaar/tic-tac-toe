@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+
 *,
 *::before,
 *::after {
@@ -14,22 +16,54 @@ body {
   margin-inline: auto;
 }
 
+.title {
+  text-align: center;
+  margin-block-end: var(--size-9);
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--size-2);
+  width: var(--size-15);
+  margin-inline: auto;
+  margin-block-end: var(--size-5);
+}
+
+.form > * {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-1);
+}
+
+.screen {
+  font-size: var(--font-size-5);
+  height: var(--size-9);
+  width: var(--size-15);
+  margin-inline: auto;
+  text-align: center;
+  margin-block-end: var(--size-5);
+}
+
 .board {
-  /* font-family: var(--font-mono); */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   gap: var(--size-2);
   align-items: center;
+  width: var(--size-15);
+  margin-inline: auto;
+  margin-block-end: var(--size-5);
 }
 
 .board__square {
+  font-family: "Fredoka One", cursive;
   background-color: var(--gray-8);
   aspect-ratio: var(--ratio-square);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: var(--font-size-7);
+  font-size: var(--font-size-8);
   user-select: none;
   cursor: pointer;
 }
@@ -37,9 +71,48 @@ body {
 .board__square.winner,
 .board__square.winner:hover {
   transition: background-color 0.25s ease-in;
-  background-color: var(--green-8);
+  background-color: var(--green-9);
 }
 
 .board__square:hover {
   background-color: var(--gray-7);
+}
+
+.reset {
+  display: block;
+  padding: var(--size-2) var(--size-6);
+  border-radius: var(--radius-2);
+  letter-spacing: var(--font-letterspacing-4);
+  margin-inline: auto;
+  background-color: var(--gray-8);
+}
+
+.reset:hover,
+.reset:active {
+  background-color: var(--gray-7);
+}
+
+@media (prefers-color-scheme: light) {
+  .reset {
+    background-color: var(--gray-3);
+    color: var(--gray-7);
+  }
+
+  .reset:hover,
+  .reset:active {
+    background-color: var(--gray-4);
+  }
+
+  .board__square {
+    background-color: var(--gray-3);
+  }
+
+  .board__square.winner,
+  .board__square.winner:hover {
+    background-color: var(--green-5);
+  }
+
+  .board__square:hover {
+    background-color: var(--gray-4);
+  }
 }

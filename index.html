@@ -14,8 +14,31 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <h1 class="container">Tic Tac Toe</h1>
+    <h1 class="container title">Tic Tac Toe</h1>
     <div class="container">
+      <form class="form">
+        <div>
+          <label for="player-x">Player X</label>
+          <input
+            type="text"
+            name="player-x"
+            id="player-x"
+            placeholder="Enter your name..."
+          />
+        </div>
+        <div>
+          <label for="player-o">Player 0</label>
+          <input
+            type="text"
+            name="player-o"
+            id="player-o"
+            placeholder="Enter your name..."
+          />
+        </div>
+      </form>
+
+      <div class="screen"></div>
+
       <div class="board">
         <div class="board__square" data-square="0"></div>
         <div class="board__square" data-square="1"></div>
@@ -27,6 +50,7 @@
         <div class="board__square" data-square="7"></div>
         <div class="board__square" data-square="8"></div>
       </div>
+      <button class="reset">NEW GAME</button>
     </div>
   </body>
 </html>

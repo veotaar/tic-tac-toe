@@ -28,6 +28,7 @@ const gameBoard = (function () {
 
 const displayController = (function () {
   const domBoard = document.querySelector(".board");
+  const screen = document.querySelector(".screen");
 
   const renderBoard = () => {
     gameBoard.board.forEach((el, i) => {
@@ -48,10 +49,13 @@ const displayController = (function () {
     winnerSquares.forEach((sq) => sq.classList.add("winner"));
   };
 
+  const anounceWinner = (winner) => (screen.innerText = `Winner is ${winner}`);
+
   return {
     renderBoard,
     clearBoard,
     highlightWinner,
+    anounceWinner,
   };
 })();
 
@@ -102,7 +106,10 @@ const gameController = (function () {
       return;
     }
     displayController.highlightWinner(results[0]?.positions);
-    if (!isGameRunning) console.log(`Winner: ${results[0].winner}`);
+    if (!isGameRunning) {
+      console.log(`Winner: ${results[0].winner}`);
+      displayController.anounceWinner(`${results[0].winner}`);
+    }
   };
 
   // create players
