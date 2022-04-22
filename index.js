@@ -22,6 +22,7 @@ const gameBoard = (function () {
 
   return {
     board,
+    taken,
     insert,
   };
 })();
@@ -29,6 +30,8 @@ const gameBoard = (function () {
 const displayController = (function () {
   const domBoard = document.querySelector(".board");
   const screen = document.querySelector(".screen");
+  const playerXInput = document.querySelector("#player-x");
+  const playerOInput = document.querySelector("#player-o");
 
   const renderBoard = () => {
     gameBoard.board.forEach((el, i) => {
@@ -38,6 +41,7 @@ const displayController = (function () {
 
   const clearBoard = () => {
     gameBoard.board.splice(0, gameBoard.board.length);
+    gameBoard.taken.splice(0, gameBoard.taken.length);
     Array.from(domBoard.children).forEach((e) => (e.textContent = ""));
   };
 
@@ -49,13 +53,23 @@ const displayController = (function () {
     winnerSquares.forEach((sq) => sq.classList.add("winner"));
   };
 
-  const anounceWinner = (winner) => (screen.innerText = `Winner is ${winner}`);
+  const getPlayerNames = () => {
+    const x = playerXInput.value;
+    const o = playerOInput.value;
+    return {
+      x,
+      o,
+    };
+  };
+
+  const anounceWinner = (result) => (screen.innerText = result);
 
   return {
     renderBoard,
     clearBoard,
     highlightWinner,
     anounceWinner,
+    getPlayerNames,
   };
 })();
 
@@ -66,11 +80,18 @@ const gameController = (function () {
   let rounds = 9;
 
   // Player factory
-  const Player = function (piece) {
+  const Player = function (playerName, piece) {
     return {
+      playerName,
       piece,
     };
   };
+
+  // create players
+  const playerX = Player("", "X");
+  const playerO = Player("", "O");
+  const players = [playerX, playerO];
+  let currentPlayer = players[0];
 
   const _checkThree = (pos1, pos2, pos3) => {
     const { board } = gameBoard;
@@ -81,6 +102,12 @@ const gameController = (function () {
       winner: board[pos1],
       positions: [pos1, pos2, pos3],
     };
+  };
+
+  const _updatePlayerNames = () => {
+    const playerNames = displayController.getPlayerNames();
+    playerX.playerName = playerNames.x;
+    playerO.playerName = playerNames.o;
   };
 
   const checkWinner = () => {
@@ -102,21 +129,19 @@ const gameController = (function () {
     // as soon as we have a winner, stop playing
     if (results.length) isGameRunning = false;
     if (rounds === 0) {
-      console.log("DRAW");
+      displayController.anounceWinner(`It's a draw!`);
       return;
     }
     displayController.highlightWinner(results[0]?.positions);
     if (!isGameRunning) {
-      console.log(`Winner: ${results[0].winner}`);
-      displayController.anounceWinner(`${results[0].winner}`);
+      changeCurrentPlayer();
+      _updatePlayerNames();
+      const winner = getCurrentPlayer();
+      displayController.anounceWinner(
+        `${winner.playerName} (${winner.piece}) wins!`
+      );
     }
   };
-
-  // create players
-  const playerX = Player("X");
-  const playerO = Player("O");
-  const players = [playerX, playerO];
-  let currentPlayer = players[0];
 
   const changeCurrentPlayer = () => {
     currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
