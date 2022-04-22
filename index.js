@@ -136,7 +136,7 @@ const gameController = (function () {
       .filter((el) => el?.won);
     // as soon as we have a winner, stop playing
     if (results.length) isGameRunning = false;
-    if (rounds === 0) {
+    if (rounds === 0 && !results.length) {
       displayController.anounceWinner(`It's a draw!`);
       return;
     }
