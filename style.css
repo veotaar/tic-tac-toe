@@ -11,6 +11,10 @@ body {
   margin: 0;
 }
 
+.title {
+  user-select: none;
+}
+
 .container {
   width: min(100% - 2rem, 50rem);
   margin-inline: auto;
@@ -34,6 +38,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--size-1);
+}
+
+.optional {
+  width: var(--size-15);
+  margin-inline: auto;
+  text-align: end;
+  font-size: var(--font-size-0);
+  letter-spacing: var(--font-letterspacing-4);
+  color: var(--gray-6);
+  user-select: none;
 }
 
 .screen {

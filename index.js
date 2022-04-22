@@ -53,6 +53,11 @@ const displayController = (function () {
     winnerSquares.forEach((sq) => sq.classList.add("winner"));
   };
 
+  const deHighlightWinner = () => {
+    const squares = Array.from(domBoard.querySelectorAll(".board__square"));
+    squares.forEach((sq) => sq.classList.remove("winner"));
+  };
+
   const getPlayerNames = () => {
     const x = playerXInput.value;
     const o = playerOInput.value;
@@ -63,12 +68,15 @@ const displayController = (function () {
   };
 
   const anounceWinner = (result) => (screen.innerText = result);
+  const removeWinnerText = () => (screen.innerText = "");
 
   return {
     renderBoard,
     clearBoard,
     highlightWinner,
+    deHighlightWinner,
     anounceWinner,
+    removeWinnerText,
     getPlayerNames,
   };
 })();
@@ -147,6 +155,15 @@ const gameController = (function () {
     currentPlayer = currentPlayer === players[0] ? players[1] : players[0];
   };
 
+  const startNewGame = () => {
+    displayController.clearBoard();
+    displayController.deHighlightWinner();
+    displayController.removeWinnerText();
+    rounds = 9;
+    currentPlayer = players[0];
+    isGameRunning = true;
+  };
+
   const getCurrentPlayer = () => currentPlayer;
   const getGameRunning = () => isGameRunning;
 
@@ -155,5 +172,11 @@ const gameController = (function () {
     getCurrentPlayer,
     changeCurrentPlayer,
     checkWinner,
+    startNewGame,
   };
+})();
+
+(function () {
+  const newGameButton = document.querySelector(".reset");
+  newGameButton.addEventListener("click", gameController.startNewGame);
 })();
