@@ -1,3 +1,3 @@
 # Tic Tac Toe
 
-- Tic Tac Toe assignment from "The Odin Project"
+- [Live Demo](https://veotaar.github.io/tic-tac-toe/)
